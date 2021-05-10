@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>SpringBoot Security</title>
+    </head>
+
+    <body>
+    <h2> 안녕하세요. 스프링 부트 보안 사이트에 오신 것을 환영합니다 </h2>
+        <div sec:authorize="isAuthenticated()">
+            <p>Welcome <span sec:authentication="principal.username">User</span></p>
+            <p><a th:href="@{/logout}">Logout</a></p>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <h3>You will see this only if you are ADMIN</h3>
+                <p><a th:href="@{/admin/home}">Admin Home</a></p>
+            </div>
+        </div>
+
+        <div sec:authorize="isAnonymous()">
+            <p><a th:href="@{/login}">LogIn</a></p>
+        </div>
+    </body>
+</html>
